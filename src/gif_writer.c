@@ -320,7 +320,7 @@ static void logical_screen(struct gif_writer *g) {
   /* color table flag */
   lsd[4] = GLOBAL_COLOR_TABLE_FLAG;
   /* color table size */
-  lsd[4] |= g->code_size - 1;
+  lsd[4] |= (unsigned char) (g->code_size - 1);
   /* background color index */
   lsd[5] = 0;
   /* aspect */
@@ -424,9 +424,9 @@ static unsigned char calc_color(struct gif_writer *gw,
     pr = gw->palette[index + 0];
     pg = gw->palette[index + 1];
     pb = gw->palette[index + 2];
-    delta = (pr - r) * (pr - r);
-    delta += (pg - g) * (pg - g);
-    delta += (pb - b) * (pb - b);
+    delta = (unsigned int) ((pr - r) * (pr - r));
+    delta += (unsigned int) ((pg - g) * (pg - g));
+    delta += (unsigned int) ((pb - b) * (pb - b));
     if (delta < result.min) {
       result.min = delta;
       result.index = (unsigned char) i;
